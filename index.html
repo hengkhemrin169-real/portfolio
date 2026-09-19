@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="km" data-theme="dark" data-lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heng Khemrin - Portfolio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    /* DARK THEME (DEFAULT) */
+    :root, [data-theme="dark"] {
+      --bg: #0b1120;
+      --card: #111827;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #6366f1;
+      --primary2: #8b5cf6;
+      --border: rgba(255,255,255,0.08);
+      --nav-bg: rgba(11, 17, 32, 0.9);
+      --project-gradient-1: #1e293b;
+      --project-gradient-2: #312e81;
+    }
+
+    /* LIGHT THEME */
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #6366f1;
+      --primary2: #8b5cf6;
+      --border: rgba(0, 0, 0, 0.08);
+      --nav-bg: rgba(248, 250, 252, 0.9);
+      --project-gradient-1: #e2e8f0;
+      --project-gradient-2: #c7d2fe;
+    }
+
+    body {
+      font-family: 'Khmer OS Siemreap', Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 20%;
+      border: 2px solid var(--muted);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* CONTROLS (THEME & LANG) */
+    .control-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .control-btn:hover {
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* LANGUAGE DISPLAY LOGIC */
+    [data-lang="km"] .en { display: none !important; }
+    [data-lang="en"] .km { display: none !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      background:
+        radial-gradient(circle at top left, rgba(99,102,241,0.15), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(139,92,246,0.12), transparent 40%);
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .profile {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 40px rgba(99,102,241,0.3);
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 60px);
+      line-height: 1.2;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero h2 {
+      color: var(--muted);
+      font-size: clamp(18px, 3vw, 22px);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: 0.3s;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color: #fff;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.95;
+    }
+
+    /* GENERAL SECTION */
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 80px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-text h3 {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      gap: 10px;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-item span:first-child {
+      color: var(--muted);
+    }
+    
+    .info-item strong {
+      text-align: right;
+      word-break: break-word;
+    }
+
+    /* SKILLS */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .skill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: 14px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+
+    .skill:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+
+    .skill-icon {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .skill h3 {
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+
+    .skill p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* PROJECTS */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .project {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: 0.3s;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+
+    .project:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+    }
+
+    .project-image {
+      height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+      background: linear-gradient(135deg, var(--project-gradient-1), var(--project-gradient-2));
+    }
+
+    .project-content {
+      padding: 20px;
+    }
+
+    .project-content h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(99,102,241,0.15);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      max-width: 650px;
+      margin: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 35px 25px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ANIMATION */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .skills { grid-template-columns: repeat(2, 1fr); }
+      .projects { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn { display: block; }
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--bg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: 0.3s ease-in-out;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.active { left: 0; }
+      .nav-links a { font-size: 18px; }
+      .about { grid-template-columns: 1fr; gap: 30px; }
+      .skills, .projects { grid-template-columns: 1fr; }
+      section { padding: 60px 15px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="images/pic_card.png" alt="Profile">
+      </div>
+
+      <div class="nav-right">
+        <button class="control-btn" id="langToggle" aria-label="Toggle Language">EN</button>
+        <button class="control-btn" id="themeToggle" aria-label="Toggle Theme">🌙</button>
+        <button class="menu-btn" id="menuBtn">☰</button>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"><span class="km">ទំព័រដើម</span><span class="en">Home</span></a></li>
+        <li><a href="#about"><span class="km">អំពីខ្ញុំ</span><span class="en">About</span></a></li>
+        <li><a href="#skills"><span class="km">ជំនាញ</span><span class="en">Skills</span></a></li>
+        <li><a href="#projects"><span class="km">គម្រោង</span><span class="en">Projects</span></a></li>
+        <li><a href="#contact"><span class="km">ទំនាក់ទំនង</span><span class="en">Contact</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <div class="profile">HK</div>
+      <h1>
+        <span class="km">សួស្តី, ខ្ញុំគឺ <span>ហេង​ ខេមរឹន្ធ</span></span>
+        <span class="en">Hello, I'm <span>Heng Khemrin</span></span>
+      </h1>
+      <h2>
+        <span class="km">អ្នកអភិវឌ្ឍន៍គេហទំព័រ & អ្នករចនា</span>
+        <span class="en">Web Developer & Designer</span>
+      </h2>
+      <p>
+        <span class="km">ខ្ញុំបង្កើតគេហទំព័រទំនើប ងាយស្រួលប្រើប្រាស់ និងសមស្របនឹងគ្រប់អេក្រង់ទូរស័ព្ទ។</span>
+        <span class="en">I create modern, responsive, and user-friendly websites. I love turning ideas into digital experiences.</span>
+      </p>
+      <div class="buttons">
+        <a href="#projects" class="btn btn-primary">
+          <span class="km">មើលស្នាដៃខ្ញុំ</span><span class="en">View My Work</span>
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <span class="km">ទាក់ទងមកខ្ញុំ</span><span class="en">Contact Me</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="fade-in">
+    <div class="section-title">
+      <h2><span class="km">អំពីខ្ញុំ</span><span class="en">About Me</span></h2>
+      <p><span class="km">ស្វែងយល់បន្ថែមពីខ្ញុំ</span><span class="en">Get to know me</span></p>
+    </div>
+    <div class="about">
+      <div class="about-text">
+        <h3>
+          <span class="km">ខ្ញុំជា Developer ដែលមានចំណង់ចំណូលចិត្តខ្ពស់។</span>
+          <span class="en">I'm a passionate developer.</span>
+        </h3>
+        <p>
+          <span class="km">ខ្ញុំចូលចិត្តសរសេរកូដបង្កើតគេហទំព័រស្អាតៗ និងមានល្បឿនលឿន។ គោលដៅរបស់ខ្ញុំគឺផ្តល់នូវបទពិសោធន៍ដ៏ល្អដល់អ្នកប្រើប្រាស់នៅលើគ្រប់ឧបករណ៍ទាំងអស់។</span>
+          <span class="en">I'm a web developer who enjoys building clean, modern, and responsive websites. I focus on creating simple experiences that look great on every device.</span>
+        </p>
+        <p>
+          <span class="km">ពេលទំនេរ ខ្ញុំតែងតែរៀនសូត្របច្ចេកវិទ្យាថ្មីៗ និងបង្កើត Project ផ្ទាល់ខ្លួនដើម្បីអភិវឌ្ឍន៍សមត្ថភាព។</span>
+          <span class="en">When I'm not coding, I enjoy learning new technologies, working on personal projects, and solving problems.</span>
+        </p>
+      </div>
+      <div class="info-box">
+        <div class="info-item">
+          <span><span class="km">ឈ្មោះ</span><span class="en">Name</span></span>
+          <strong>Heng Khemrin</strong>
+        </div>
+        <div class="info-item">
+          <span><span class="km">អ៊ីមែល</span><span class="en">Email</span></span>
+          <strong>hengkhemrin169@gmail.com</strong>
+        </div>
+        <div class="info-item">
+          <span><span class="km">ទីតាំង</span><span class="en">Location</span></span>
+          <strong><span class="km">ខេត្តបន្ទាយមានជ័យ</span><span class="en">Banteay Meanchey province</span></strong>
+        </div>
+        <div class="info-item">
+          <span><span class="km">បទពិសោធន៍</span><span class="en">Experience</span></span>
+          <strong>4+ Years in NMU</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="fade-in">
+    <div class="section-title">
+      <h2><span class="km">ជំនាញរបស់ខ្ញុំ</span><span class="en">My Skills</span></h2>
+      <p><span class="km">បច្ចេកវិទ្យាដែលខ្ញុំប្រើប្រាស់</span><span class="en">Technologies I work with</span></p>
+    </div>
+    <div class="skills">
+      <div class="skill">
+        <div class="skill-icon">🌐</div>
+        <h3>HTML</h3>
+        <p><span class="km">កសាងគេហទំព័រត្រឹមត្រូវ</span><span class="en">Semantic & accessible websites</span></p>
+      </div>
+      <div class="skill">
+        <div class="skill-icon">🎨</div>
+        <h3>CSS</h3>
+        <p><span class="km">រចនាម៉ូដទាក់ទាញ និង Responsive</span><span class="en">Responsive modern designs</span></p>
+      </div>
+      <div class="skill">
+        <div class="skill-icon">⚡</div>
+        <h3>JavaScript</h3>
+        <p><span class="km">បង្កើតអន្តរកម្ម និងមុខងារផ្សេងៗ</span><span class="en">Interactive web applications</span></p>
+      </div>
+      <div class="skill">
+        <div class="skill-icon">⚛️</div>
+        <h3>React</h3>
+        <p><span class="km">បង្កើត Frontend កម្រិតខ្ពស់</span><span class="en">Modern frontend applications</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="fade-in">
+    <div class="section-title">
+      <h2><span class="km">គម្រោងរបស់ខ្ញុំ</span><span class="en">My Projects</span></h2>
+      <p><span class="km">ស្នាដៃការងារថ្មីៗ</span><span class="en">Some of my recent work</span></p>
+    </div>
+    <div class="projects">
+      <div class="project">
+        <div class="project-image">🛒</div>
+        <div class="project-content">
+          <h3>E-Commerce Website</h3>
+          <p>
+            <span class="km">ហាងទំនិញអនឡាញទំនើប មានកន្ត្រកទំនិញ និងទម្រង់បង្ហាញច្បាស់លាស់។</span>
+            <span class="en">A modern online store with product pages, shopping cart, and responsive design.</span>
+          </p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-image">📱</div>
+        <div class="project-content">
+          <h3>Mobile App Landing Page</h3>
+          <p>
+            <span class="km">ទំព័រផ្សព្វផ្សាយកម្មវិធីទូរស័ព្ទដៃយ៉ាងស្រស់ស្អាត។</span>
+            <span class="en">A clean landing page designed to promote a modern mobile application.</span>
+          </p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">UI/UX</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-image">📊</div>
+        <div class="project-content">
+          <h3>Dashboard UI</h3>
+          <p>
+            <span class="km">ប្រព័ន្ធត្រួតពិនិត្យទិន្នន័យ ព្រមទាំងតារាងស្ថិតិផ្សេងៗ។</span>
+            <span class="en">A responsive dashboard interface with cards, statistics, and modern visual components.</span>
+          </p>
+          <div class="tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">CSS</span>
+            <span class="tag">React</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="fade-in">
+    <div class="section-title">
+      <h2><span class="km">ទំនាក់ទំនង</span><span class="en">Contact Me</span></h2>
+      <p><span class="km">តោះធ្វើការរួមគ្នា!</span><span class="en">Let's work together</span></p>
+    </div>
+    <div class="contact-box">
+      <h3>
+        <span class="km">មានគម្រោងក្នុងចិត្តមែនទេ?</span>
+        <span class="en">Have a project in mind?</span>
+      </h3>
+      <p>
+        <span class="km">សូមទាក់ទងមកខ្ញុំបានជានិច្ច ខ្ញុំរីករាយនឹងពិភាក្សាលើគម្រោងថ្មីៗ។</span>
+        <span class="en">Feel free to contact me. I'm always interested in discussing new projects and opportunities.</span>
+      </p>
+      <div class="contact-links">
+        <a href="mailto:hengkhemrin169@gmail.com" class="btn btn-primary">
+          📧 <span class="km">អ៊ីមែល</span><span class="en">Email Me</span>
+        </a>
+        <a href="https://github.com/" target="_blank" class="btn btn-secondary">💻 GitHub</a>
+        <a href="https://www.facebook.com/share/1CKxvY3xtm/" target="_blank" class="btn btn-secondary">💬 Facebook</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="year"></span> Heng Khemrin. <span class="km">រក្សាសិទ្ធិគ្រប់យ៉ាង។</span><span class="en">All rights reserved.</span></p>
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("themeToggle");
+    const htmlElement = document.documentElement;
+
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    htmlElement.setAttribute("data-theme", savedTheme);
+    themeToggle.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = htmlElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      
+      htmlElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      themeToggle.textContent = newTheme === "dark" ? "☀️" : "🌙";
+    });
+
+    // Language toggle functionality
+    const langToggle = document.getElementById("langToggle");
+    const savedLang = localStorage.getItem("lang") || "km";
+    htmlElement.setAttribute("data-lang", savedLang);
+    langToggle.textContent = savedLang === "km" ? "EN" : "KH";
+
+    langToggle.addEventListener("click", () => {
+      const currentLang = htmlElement.getAttribute("data-lang");
+      const newLang = currentLang === "km" ? "en" : "km";
+
+      htmlElement.setAttribute("data-lang", newLang);
+      localStorage.setItem("lang", newLang);
+      langToggle.textContent = newLang === "km" ? "EN" : "KH";
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+
+    // Close menu when clicking links
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+      });
+    });
+
+    // Current year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll animation
+    const elements = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    elements.forEach(element => observer.observe(element));
+  </script>
+
+</body>
+</html>
